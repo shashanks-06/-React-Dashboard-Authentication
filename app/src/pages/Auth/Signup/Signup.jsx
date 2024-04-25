@@ -30,9 +30,27 @@ const signupValidationSchema = object({
 
 const Signup = () => {
   return (
-    <Container>
+    <Container bg="white">
       <Center minH="100vh">
-        <Card p="6" w="456px" borderRadius="1rem">
+        <Card
+          bg={{
+            base: "transparent",
+            md: "white",
+          }}
+          p={{
+            base: "0",
+            md: "6",
+          }}
+          w="456px"
+          borderRadius={{
+            base: "none",
+            md: "1rem",
+          }}
+          boxShadow={{
+            base: "none",
+            md: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+          }}
+        >
           <Text fontWeight="medium" textStyle="h1">
             Welcome to Crypto App
           </Text>
