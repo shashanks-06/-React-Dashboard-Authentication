@@ -1,25 +1,26 @@
 import { Card as ChakraCard } from "@chakra-ui/react";
 
-const Card = ({ children }) => {
+const Card = ({ children, showCard = false, ...props }) => {
   return (
     <ChakraCard
       bg={{
-        base: "transparent",
+        base: showCard ? "white" : "transparent",
         md: "white",
       }}
       p={{
-        base: "0",
+        base: showCard ? "4" : "0",
         md: "6",
       }}
       w="456px"
       borderRadius={{
-        base: "none",
+        base: showCard ? "1rem" : "none",
         md: "1rem",
       }}
       boxShadow={{
-        base: "none",
+        base: showCard ? "md" : "none",
         md: "lg",
       }}
+      {...props}
     >
       {children}
     </ChakraCard>
