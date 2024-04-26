@@ -80,7 +80,7 @@ const ResetPassword = () => {
                     )}
                   </Field>
                   <Box>
-                    <Link to="/signin">
+                    <Link to="/reset-success">
                       <Button type="submit" variant="outline" w="full">
                         Reset Password
                       </Button>
