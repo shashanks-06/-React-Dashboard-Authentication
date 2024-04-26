@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     element: <ForgotPassword />,
   },
   {
-    path: "/forgot-password-sent",
+    path: "/forgot-success",
     element: <ForgotPasswordSent />,
   },
   {
