@@ -63,9 +63,11 @@ const ForgotPassword = () => {
                     </FormControl>
                   )}
                 </Field>
-                <Button variant="outline" w="full">
-                  Reset Account
-                </Button>
+                <Link to="/forgot-password-sent">
+                  <Button variant="outline" w="full">
+                    Reset Account
+                  </Button>
+                </Link>
               </Stack>
             </Form>
           )}
