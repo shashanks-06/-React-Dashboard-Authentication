@@ -17,14 +17,14 @@ import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
 import Card from "../../../components/Card";
 
-const signinValidationSchema = object({
-  email: string().email("Email is Invalid").required("Email is required"),
-  password: string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
-});
-
 const Signin = () => {
+  const signinValidationSchema = object({
+    email: string().email("Email is Invalid").required("Email is required"),
+    password: string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
+
   return (
     <Container>
       <Center minH="100vh">
