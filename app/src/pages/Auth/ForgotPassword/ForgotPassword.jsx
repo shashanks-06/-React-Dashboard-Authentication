@@ -27,7 +27,13 @@ const ForgotPassword = () => {
   return (
     <Container>
       <Center minH="100vh">
-        <Card>
+        <Card
+          p={{
+            base: "4",
+            md: "10",
+          }}
+          showCard={true}
+        >
           <Link to="/signin">
             <Icon as={FaArrowLeftLong} boxSize="6" />
           </Link>

@@ -29,7 +29,13 @@ const ResetPassword = () => {
   return (
     <Container>
       <Center minH="100vh">
-        <Card>
+        <Card
+          p={{
+            base: "4",
+            md: "10",
+          }}
+          showCard={true}
+        >
           <Text fontWeight="medium" textStyle="h1">
             Reset Password
           </Text>
@@ -52,7 +58,7 @@ const ResetPassword = () => {
                   <Field name="password">
                     {({ field, meta }) => (
                       <FormControl isInvalid={!!(meta.error && meta.touched)}>
-                        <FormLabel htmlFor="password">Password</FormLabel>
+                        <FormLabel htmlFor="password">New Password</FormLabel>
                         <Input
                           {...field}
                           name="password"
@@ -67,7 +73,7 @@ const ResetPassword = () => {
                     {({ field, meta }) => (
                       <FormControl isInvalid={!!(meta.error && meta.touched)}>
                         <FormLabel htmlFor="repeatPassword">
-                          Repeat Password
+                          New Repeat Password
                         </FormLabel>
                         <Input
                           {...field}

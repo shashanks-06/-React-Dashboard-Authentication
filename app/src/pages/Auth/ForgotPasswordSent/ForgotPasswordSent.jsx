@@ -14,7 +14,6 @@ import { Link } from "react-router-dom";
 const ForgotPasswordSent = () => {
   return (
     <Container>
-      {" "}
       <Center minH="100vh">
         <Card
           p={{
