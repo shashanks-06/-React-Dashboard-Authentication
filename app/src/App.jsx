@@ -5,6 +5,7 @@ import Support from "./pages/Support/Support";
 import TransactionPage from "./pages/Transaction/Transaction";
 import Signup from "./pages/Auth/Signup/signup";
 import Signin from "./pages/Auth/Signin/Signin";
+import RegisterEmailVerify from "./pages/Auth/RegisterEmailVerify/RegisterEmailVerify";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <Signin />,
+  },
+  {
+    path: "/register-email-verify",
+    element: <RegisterEmailVerify />,
   },
 ]);
 
