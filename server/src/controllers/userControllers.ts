@@ -79,7 +79,7 @@ export const sendVerificationMail: RequestHandler = async (req, res, next) => {
     });
 
     let info = await transporter.sendMail({
-      from: '"Fred Foo 👻" <anshuraj@dosomecoding.com>', // sender address
+      from: '"Fred Foo 👻" <shashank@surjekar.com>', // sender address
       to: `${email}`, // list of receivers
       subject: "For Email Verification", // Subject line
       // text: "Hello world?", // plain text body
@@ -135,7 +135,7 @@ export const sendForgotPasswordMail: RequestHandler = async (
     });
 
     let info = await transporter.sendMail({
-      from: '"Fred Foo 👻" <anshuraj@dosomecoding.com>', // sender address
+      from: '"Fred Foo 👻" <shashank@surjekar.com>', // sender address
       to: `${email}`, // list of receivers
       subject: "For Forgot Password Verification Mail", // Subject line
       // text: "Hello world?", // plain text body

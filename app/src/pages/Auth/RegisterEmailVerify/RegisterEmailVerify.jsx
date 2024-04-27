@@ -4,20 +4,48 @@ import {
   Center,
   Container,
   Icon,
+  Spinner,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import Card from "../../../components/Card";
 import { MdEmail } from "react-icons/md";
 import { useLocation } from "react-router-dom";
+import { sendVerificationMail } from "../../../api/query/userQuery";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 const RegisterEmailVerify = () => {
+  const toast = useToast();
   const location = useLocation();
   const email = location.state?.email ?? "";
 
   if (email === "") {
     return <Card h="100vh">Invalid Email</Card>;
   }
+
+  const { mutate, isSuccess, isLoading } = useMutation({
+    mutationKey: ["send-verification-mail"],
+    mutationFn: sendVerificationMail,
+
+    onSettled: (data) => {
+      console.log(data);
+    },
+
+    onError: (error) => {
+      toast({
+        title: "Signup Error",
+        description: error.message,
+        status: "error",
+      });
+    },
+    enabled: !!email,
+  });
+
+  useEffect(() => {
+    mutate({ email });
+  }, [email]);
 
   return (
     <Container>
@@ -41,7 +69,14 @@ const RegisterEmailVerify = () => {
               </Box>
               . If you didn’t receive it, click the button below.
             </Text>
-            <Button w="full" variant="outline">
+            <Button
+              w="full"
+              variant="outline"
+              isLoading={isLoading}
+              onClick={() => {
+                mutate({ email });
+              }}
+            >
               Re-send Email
             </Button>
           </VStack>

@@ -38,15 +38,16 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const toast = useToast();
-
   const { mutate, isLoading } = useMutation({
     mutationFn: signupUser,
     mutationKey: ["signup"],
 
     onSuccess: (data) => {
-      navigate("/register-email-verify", {
-        state: { email },
-      });
+      if (email !== "") {
+        navigate("/register-email-verify", {
+          state: { email },
+        });
+      }
     },
 
     onError: (error) => {
@@ -77,13 +78,13 @@ const Signup = () => {
               repeatPassword: "",
             }}
             onSubmit={(values) => {
+              setEmail(values.email);
               mutate({
                 firstName: values.name,
                 lastName: values.surname,
                 email: values.email,
                 password: values.password,
               });
-              setEmail(values.email);
             }}
             validationSchema={signupValidationSchema}
           >
