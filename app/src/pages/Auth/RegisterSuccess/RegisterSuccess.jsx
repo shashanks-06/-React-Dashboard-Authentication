@@ -9,9 +9,12 @@ import {
 } from "@chakra-ui/react";
 import Card from "../../../components/Card";
 import { IoShieldCheckmark } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const RegisterSuccess = () => {
+  const params = useParams();
+  console.log(params);
+
   return (
     <Container>
       <Center minH="100vh">
