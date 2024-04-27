@@ -29,7 +29,7 @@ const signinValidationSchema = object({
 
 const Signin = () => {
   const toast = useToast();
-  const { mutate, isLoading, error, isError } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: signinUser,
     mutationKey: ["signin"],
     onSuccess: (data) => {},
@@ -40,7 +40,7 @@ const Signin = () => {
         status: "error",
       });
     },
-  });       
+  });
 
   return (
     <Container>
