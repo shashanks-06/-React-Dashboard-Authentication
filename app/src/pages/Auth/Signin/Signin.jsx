@@ -11,6 +11,7 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
@@ -27,14 +28,19 @@ const signinValidationSchema = object({
 });
 
 const Signin = () => {
+  const toast = useToast();
   const { mutate, isLoading, error, isError } = useMutation({
     mutationFn: signinUser,
     mutationKey: ["signin"],
+    onSuccess: (data) => {},
+    onError: (error) => {
+      toast({
+        title: "Signin Error",
+        description: error.message,
+        status: "error",
+      });
+    },
   });
-
-  if (isError) {
-    return <Box>{error.message}</Box>;
-  }
 
   return (
     <Container>
