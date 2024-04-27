@@ -16,19 +16,19 @@ import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
 import Card from "../../../components/Card";
 
-const Signup = () => {
-  const signupValidationSchema = object({
-    name: string().required("Name is required"),
-    surname: string().required("Surname is required"),
-    email: string().email("Email is Invalid").required("Email is required"),
-    password: string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-    repeatPassword: string()
-      .oneOf([ref("password"), null], "Password must match")
-      .required("Repeat password is required"),
-  });
+const signupValidationSchema = object({
+  name: string().required("Name is required"),
+  surname: string().required("Surname is required"),
+  email: string().email("Email is Invalid").required("Email is required"),
+  password: string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  repeatPassword: string()
+    .oneOf([ref("password"), null], "Password must match")
+    .required("Repeat password is required"),
+});
 
+const Signup = () => {
   return (
     <Container>
       <Center minH="100vh">
