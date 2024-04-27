@@ -10,11 +10,15 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
 import Card from "../../../components/Card";
+import { useMutation } from "@tanstack/react-query";
+import { signupUser } from "../../../api/query/userQuery";
+import { useState } from "react";
 
 const signupValidationSchema = object({
   name: string().required("Name is required"),
@@ -29,6 +33,31 @@ const signupValidationSchema = object({
 });
 
 const Signup = () => {
+  const [email, setEmail] = useState();
+
+  const navigate = useNavigate();
+
+  const toast = useToast();
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: signupUser,
+    mutationKey: ["signup"],
+
+    onSuccess: (data) => {
+      navigate("/register-email-verify", {
+        state: { email },
+      });
+    },
+
+    onError: (error) => {
+      toast({
+        title: "Signup Error",
+        description: error.message,
+        status: "error",
+      });
+    },
+  });
+
   return (
     <Container>
       <Center minH="100vh">
@@ -48,7 +77,13 @@ const Signup = () => {
               repeatPassword: "",
             }}
             onSubmit={(values) => {
-              console.log(values);
+              mutate({
+                firstName: values.name,
+                lastName: values.surname,
+                email: values.email,
+                password: values.password,
+              });
+              setEmail(values.email);
             }}
             validationSchema={signupValidationSchema}
           >
@@ -136,7 +171,9 @@ const Signup = () => {
                       .
                     </Text>
                   </Checkbox>
-                  <Button type="submit">Create Account</Button>
+                  <Button type="submit" isLoading={isLoading}>
+                    Create Account
+                  </Button>
                   <Text textStyle="p3" color="black.60" textAlign="center">
                     Already have an account?{" "}
                     <Link to="/signin">

@@ -9,8 +9,16 @@ import {
 } from "@chakra-ui/react";
 import Card from "../../../components/Card";
 import { MdEmail } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 
 const RegisterEmailVerify = () => {
+  const location = useLocation();
+  const email = location.state?.email ?? "";
+
+  if (email === "") {
+    return <Card h="100vh">Invalid Email</Card>;
+  }
+
   return (
     <Container>
       <Center minH="100vh">
@@ -29,7 +37,7 @@ const RegisterEmailVerify = () => {
             <Text textAlign="center" textStyle="p2" color="black.60">
               We have sent you an email verification to{" "}
               <Box as="b" color="p.black">
-                jenny.wilson@gmail.com
+                {email}
               </Box>
               . If you didn’t receive it, click the button below.
             </Text>
