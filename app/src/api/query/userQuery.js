@@ -11,5 +11,5 @@ export const signinUser = async ({ password, email }) => {
     return data;
   } catch (error) {
     throw Error(error.response.data.message);
-  }
+  }   
 };
