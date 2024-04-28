@@ -11,18 +11,21 @@ import {
 } from "@chakra-ui/react";
 import Card from "../../../components/Card";
 import { MdEmail } from "react-icons/md";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { sendVerificationMail } from "../../../api/query/userQuery";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 const RegisterEmailVerify = () => {
   const toast = useToast();
-  const location = useLocation();
-  const email = location.state?.email ?? "";
+  const { email } = useParams();
 
   if (email === "") {
-    return <Card h="100vh">Invalid Email</Card>;
+    return (
+      <Center h="100vh">
+        <Card>Invalid Email</Card>
+      </Center>
+    );
   }
 
   const { mutate, isSuccess, isLoading } = useMutation({

@@ -41,7 +41,7 @@ export const sendVerificationMail = async ({ email }) => {
 
 export const verifyEmailAddressSignup = async ({ token }) => {
   try {
-    const { data } = await Axios.post(`${USER_URL}/verify-user-mail`, {
+    const { data } = await Axios.post(`${USER_URL}/verfiy-user-mail`, {
       token,
     });
     return data;

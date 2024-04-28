@@ -32,7 +32,10 @@ const Signin = () => {
   const { mutate, isLoading } = useMutation({
     mutationFn: signinUser,
     mutationKey: ["signin"],
-    onSuccess: (data) => {},
+    onSuccess: (data) => {
+      const { token } = data;
+      
+    },
     onError: (error) => {
       toast({
         title: "Signin Error",

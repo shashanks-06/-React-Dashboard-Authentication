@@ -33,20 +33,17 @@ const signupValidationSchema = object({
 });
 
 const Signup = () => {
-  const [email, setEmail] = useState();
-
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
-
   const toast = useToast();
+
   const { mutate, isLoading } = useMutation({
-    mutationFn: signupUser,
     mutationKey: ["signup"],
+    mutationFn: signupUser,
 
     onSuccess: (data) => {
       if (email !== "") {
-        navigate("/register-email-verify", {
-          state: { email },
-        });
+        navigate(`/register-email-verify/${email}`);
       }
     },
 
