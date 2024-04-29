@@ -17,7 +17,6 @@ export default function AuthProvider({ children }) {
   const login = (tokenStr) => {
     if (tokenStr) {
       setToken(tokenStr);
-
       const { exp } = jwtDecode(tokenStr);
 
       if (exp) {
@@ -27,6 +26,8 @@ export default function AuthProvider({ children }) {
           sameSite: true,
         });
       }
+
+      console.log("token", token);
       return;
     }
 

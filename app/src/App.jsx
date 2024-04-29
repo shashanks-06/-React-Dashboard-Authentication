@@ -14,6 +14,7 @@ import ForgotPasswordSent from "./pages/Auth/ForgotPasswordSent/ForgotPasswordSe
 import ResetPassword from "./pages/Auth/ResetPassword/ResetPassword";
 import ResetPasswordSuccess from "./pages/Auth/ResetPasswordSuccess/ResetPasswordSuccess";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import AlreadySigninRoute from "./components/Auth/AlreadySigninRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -27,43 +28,83 @@ function App() {
     },
     {
       path: "/transactions",
-      element: <TransactionPage />,
+      element: (
+        <ProtectedRoute>
+          <TransactionPage />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/support",
-      element: <Support />,
+      element: (
+        <ProtectedRoute>
+          <Support />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/signup",
-      element: <Signup />,
+      element: (
+        <AlreadySigninRoute>
+          <Signup />
+        </AlreadySigninRoute>
+      ),
     },
     {
       path: "/signin",
-      element: <Signin />,
+      element: (
+        <AlreadySigninRoute>
+          <Signin />
+        </AlreadySigninRoute>
+      ),
     },
     {
       path: "/register-email-verify/:email",
-      element: <RegisterEmailVerify />,
+      element: (
+        <AlreadySigninRoute>
+          <RegisterEmailVerify />
+        </AlreadySigninRoute>
+      ),
     },
     {
       path: "/email-verify/:token",
-      element: <RegisterSuccess />,
+      element: (
+        <AlreadySigninRoute>
+          <RegisterSuccess />
+        </AlreadySigninRoute>
+      ),
     },
     {
       path: "/forgot-password",
-      element: <ForgotPassword />,
+      element: (
+        <AlreadySigninRoute>
+          <ForgotPassword />
+        </AlreadySigninRoute>
+      ),
     },
     {
       path: "/forgot-success/:email",
-      element: <ForgotPasswordSent />,
+      element: (
+        <AlreadySigninRoute>
+          <ForgotPasswordSent />
+        </AlreadySigninRoute>
+      ),
     },
     {
       path: "/forgot-password-verify/:token",
-      element: <ResetPassword />,
+      element: (
+        <AlreadySigninRoute>
+          <ResetPassword />
+        </AlreadySigninRoute>
+      ),
     },
     {
       path: "/reset-success",
-      element: <ResetPasswordSuccess />,
+      element: (
+        <AlreadySigninRoute>
+          <ResetPasswordSuccess />
+        </AlreadySigninRoute>
+      ),
     },
   ]);
 
