@@ -13,17 +13,44 @@ import {
   Stack,
   Text,
   Container,
+  useToast,
 } from "@chakra-ui/react";
 import Card from "../../../components/Card";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
+import { sendForgotMail } from "../../../api/query/userQuery";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 
 const ForgotPassword = () => {
   const forgotValidationSchema = object({
     email: string().email("Email is Invalid").required("Email is required"),
   });
+
+  const [email, setEmail] = useState();
+  const toast = useToast();
+  const navigate = useNavigate();
+
+  const { mutate, isSuccess, isLoading } = useMutation({
+    mutationKey: ["send-forgot-email"],
+    mutationFn: sendForgotMail,
+
+    onSettled: (data) => {
+      console.log(data);
+      navigate(`/forgot-success/${email}`);
+    },
+
+    onError: (error) => {
+      toast({
+        title: "Forgot Error",
+        description: error.message,
+        status: "error",
+      });
+    },
+  });
+
   return (
     <Container>
       <Center minH="100vh">
@@ -50,7 +77,8 @@ const ForgotPassword = () => {
               password: "",
             }}
             onSubmit={(values) => {
-              console.log(values);
+              setEmail((prev) => values.email);
+              mutate({ email: values.email });
             }}
             validationSchema={forgotValidationSchema}
           >
@@ -71,11 +99,10 @@ const ForgotPassword = () => {
                       </FormControl>
                     )}
                   </Field>
-                  <Link to="/reset-password">
-                    <Button variant="outline" w="full">
-                      Reset Account
-                    </Button>
-                  </Link>
+
+                  <Button type="submit" variant="outline" w="full">
+                    Reset Account
+                  </Button>
                 </Stack>
               </Form>
             )}
