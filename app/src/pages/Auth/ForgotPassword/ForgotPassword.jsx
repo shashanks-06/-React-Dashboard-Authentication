@@ -77,7 +77,7 @@ const ForgotPassword = () => {
               password: "",
             }}
             onSubmit={(values) => {
-              setEmail((prev) => values.email);
+              setEmail((prev) => (prev = values.email));
               mutate({ email: values.email });
             }}
             validationSchema={forgotValidationSchema}
@@ -100,7 +100,12 @@ const ForgotPassword = () => {
                     )}
                   </Field>
 
-                  <Button type="submit" variant="outline" w="full">
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    w="full"
+                    isLoading={isLoading}
+                  >
                     Reset Account
                   </Button>
                 </Stack>

@@ -9,9 +9,11 @@ import {
 } from "@chakra-ui/react";
 import Card from "../../../components/Card";
 import { IoShieldCheckmark } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ForgotPasswordSent = () => {
+  const { email } = useParams();
+
   return (
     <Container>
       <Center minH="100vh">
@@ -30,7 +32,7 @@ const ForgotPasswordSent = () => {
             <Text textAlign="center" textStyle="p2" color="black.60">
               We have sent instructions on how to reset your password to{" "}
               <Box as="b" color="p.black">
-                jenny.wilson@gmail.com
+                {email}
               </Box>
               . Please follow the instructions from the email.
             </Text>
