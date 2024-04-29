@@ -2,30 +2,65 @@ import {
   Box,
   Button,
   Center,
-  Checkbox,
   Container,
-  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
+  Spinner,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
 import Card from "../../../components/Card";
+import { useMutation } from "@tanstack/react-query";
+import { verifyForgotToken } from "../../../api/query/userQuery";
+
+const resetValidationSchema = object({
+  password: string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  repeatPassword: string()
+    .oneOf([ref("password"), null], "Password must match")
+    .required("Repeat password is required"),
+});
 
 const ResetPassword = () => {
-  const resetValidationSchema = object({
-    password: string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-    repeatPassword: string()
-      .oneOf([ref("password"), null], "Password must match")
-      .required("Repeat password is required"),
+  const toast = useToast();
+  const { token } = useParams();
+  const navigate = useNavigate();
+
+  const { mutate, isLoading } = useMutation({
+    mutationKey: ["verify-forgot-token"],
+    mutationFn: verifyForgotToken,
+    enabled: !!token,
+
+    onError: (error) => {
+      toast({
+        title: "Reset Password error",
+        description: error.message,
+        status: "error",
+      });
+
+      navigate("/signup");
+    },
+
+    onSettled: () => {
+      navigate("/reset-success");
+    },
   });
+
+  if (isLoading) {
+    return (
+      <Center h="100vh">
+        <Spinner />
+      </Center>
+    );
+  }
+
   return (
     <Container>
       <Center minH="100vh">
@@ -48,7 +83,10 @@ const ResetPassword = () => {
               repeatPassword: "",
             }}
             onSubmit={(values) => {
-              console.log(values);
+              mutate({
+                token,
+                password: values.password,
+              });
             }}
             validationSchema={resetValidationSchema}
           >
@@ -85,13 +123,9 @@ const ResetPassword = () => {
                       </FormControl>
                     )}
                   </Field>
-                  <Box>
-                    <Link to="/reset-success">
-                      <Button type="submit" variant="outline" w="full">
-                        Reset Password
-                      </Button>
-                    </Link>
-                  </Box>
+                  <Button type="submit" variant="outline" w="full">
+                    Reset Password
+                  </Button>
                 </Stack>
               </Form>
             )}
