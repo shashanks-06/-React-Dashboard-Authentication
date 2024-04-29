@@ -19,6 +19,7 @@ import { object, string } from "yup";
 import Card from "../../../components/Card";
 import { useMutation } from "@tanstack/react-query";
 import { signinUser } from "../../../api/query/userQuery.js";
+import useAuth from "../../../hooks/useAuth.jsx";
 
 const signinValidationSchema = object({
   email: string().email("Email is Invalid").required("Email is required"),
@@ -29,14 +30,19 @@ const signinValidationSchema = object({
 
 const Signin = () => {
   const toast = useToast();
+  const { login } = useAuth();
   const { mutate, isLoading } = useMutation({
     mutationKey: ["signin"],
     mutationFn: signinUser,
 
     onSuccess: (data) => {
       const { token } = data;
+
+      if (token) {
+        login(token);
+      }
     },
-    
+
     onError: (error) => {
       toast({
         title: "Signin Error",

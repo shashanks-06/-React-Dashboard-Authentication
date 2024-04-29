@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import JwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { useCookies } from "react-cookie";
 
 export const AuthContext = createContext();
@@ -10,22 +10,33 @@ export default function AuthProvider({ children }) {
   const [cookies, setCookie, removeCookie] = useCookies();
 
   //   const storeToken = (token) => {
-  //     const decodedToken = JwtDecode(token);
+  //     const decodedToken = jwtDecode(token);
   //     setUser(decodedToken);
   //   };
 
-  const login = (token) => {
-    if (token) {
-      setToken(token);
+  const login = (tokenStr) => {
+    if (tokenStr) {
+      setToken(tokenStr);
 
-      const decodedToken = JwtDecode(token);
-      console.log(decodedToken);
+      const { exp } = jwtDecode(tokenStr);
+
+      if (exp) {
+        setCookie("jwt", tokenStr, {
+          path: "/",
+          maxAge: exp,
+          sameSite: true,
+        });
+      }
+      return;
     }
+
+    logout();
   };
 
   const logout = () => {
     setUser(null);
     setToken(null);
+    removeCookie("jwt", { path: "/" });
   };
 
   return (
