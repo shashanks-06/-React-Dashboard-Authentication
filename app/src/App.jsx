@@ -13,55 +13,60 @@ import ForgotPassword from "./pages/Auth/ForgotPassword/ForgotPassword";
 import ForgotPasswordSent from "./pages/Auth/ForgotPasswordSent/ForgotPasswordSent";
 import ResetPassword from "./pages/Auth/ResetPassword/ResetPassword";
 import ResetPasswordSuccess from "./pages/Auth/ResetPasswordSuccess/ResetPasswordSuccess";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Dashboard />,
-  },
-  {
-    path: "/transactions",
-    element: <TransactionPage />,
-  },
-  {
-    path: "/support",
-    element: <Support />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
-  {
-    path: "/signin",
-    element: <Signin />,
-  },
-  {
-    path: "/register-email-verify/:email",
-    element: <RegisterEmailVerify />,
-  },
-  {
-    path: "/email-verify/:token",
-    element: <RegisterSuccess />,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPassword />,
-  },
-  {
-    path: "/forgot-success/:email",
-    element: <ForgotPasswordSent />,
-  },
-  {
-    path: "/forgot-password-verify/:token",
-    element: <ResetPassword />,
-  },
-  {
-    path: "/reset-success",
-    element: <ResetPasswordSuccess />,
-  },
-]);
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/transactions",
+      element: <TransactionPage />,
+    },
+    {
+      path: "/support",
+      element: <Support />,
+    },
+    {
+      path: "/signup",
+      element: <Signup />,
+    },
+    {
+      path: "/signin",
+      element: <Signin />,
+    },
+    {
+      path: "/register-email-verify/:email",
+      element: <RegisterEmailVerify />,
+    },
+    {
+      path: "/email-verify/:token",
+      element: <RegisterSuccess />,
+    },
+    {
+      path: "/forgot-password",
+      element: <ForgotPassword />,
+    },
+    {
+      path: "/forgot-success/:email",
+      element: <ForgotPasswordSent />,
+    },
+    {
+      path: "/forgot-password-verify/:token",
+      element: <ResetPassword />,
+    },
+    {
+      path: "/reset-success",
+      element: <ResetPasswordSuccess />,
+    },
+  ]);
+
   const queryClient = new QueryClient();
 
   return (
