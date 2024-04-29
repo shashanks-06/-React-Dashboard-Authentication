@@ -1,12 +1,11 @@
 import useAuth from "../../hooks/useAuth";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AlreadySigninRoute = ({ children }) => {
   const { token } = useAuth();
+  const navigate = useNavigate();
 
-  console.log(token);
-
-  return <>{!token ? children : <Navigate to="/" />}</>;
+  return <>{!token ? children : navigate("/")}</>;
 };
 
 export default AlreadySigninRoute;
