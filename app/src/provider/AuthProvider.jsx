@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useCookies } from "react-cookie";
 
@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState();
   const [token, setToken] = useState();
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookie, setCookie, removeCookie] = useCookies(["jwt"]);
 
   //   const storeToken = (token) => {
   //     const decodedToken = jwtDecode(token);
@@ -39,6 +39,14 @@ export default function AuthProvider({ children }) {
     setToken(null);
     removeCookie("jwt", { path: "/" });
   };
+
+  useEffect(() => {
+    if (cookie?.jwt) {
+      setToken(cookie.jwt);
+      const user = jwtDecode(cookie.jwt);
+      setUser(user);
+    }
+  }, [cookie]);
 
   return (
     <AuthContext.Provider
