@@ -6,8 +6,6 @@ import { Link, useLocation } from "react-router-dom";
 const Sidenav = () => {
   const location = useLocation();
 
-  console.log(location);
-
   const isActiveLink = (link) => {
     return location.pathname === link;
   };
@@ -41,7 +39,13 @@ const Sidenav = () => {
     >
       <Box>
         <Heading textAlign="center" fontSize="20px" as="h1" pt="3.5rem">
-          @DOSOMECODING
+          <Text
+            _hover={{
+              color: "p.purple",
+            }}
+          >
+            @SHASHANK_S
+          </Text>
         </Heading>
         <Box mt="6" mx="3">
           {navLinks.map((nav) => (
@@ -56,7 +60,6 @@ const Sidenav = () => {
                   bg: "#F3F3F7",
                   color: "#171717",
                 }}
-                color="#797E82"
               >
                 <Icon as={nav.icon} />
                 <Text fontSize="14px" fontWeight="medium">

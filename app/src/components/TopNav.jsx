@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { FaBars, FaUserTie } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const TopNav = ({ title, onOpen }) => {
   const { logout } = useAuth();
@@ -35,7 +36,9 @@ const TopNav = ({ title, onOpen }) => {
           </MenuButton>
           <MenuList>
             <MenuItem onClick={logout}>Logout</MenuItem>
-            <MenuItem>Support</MenuItem>
+            <MenuItem>
+              <Link to="/support">Support</Link>
+            </MenuItem>
           </MenuList>
         </Menu>
       </HStack>
