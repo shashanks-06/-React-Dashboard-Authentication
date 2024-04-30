@@ -2,148 +2,236 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Stack,
   Text,
   Tag,
+  SimpleGrid,
+  Box,
+  Flex,
+  HStack,
 } from "@chakra-ui/react";
+
 const TransactionTable = () => {
   const tableData = [
     {
       id: "HD82NA2H",
       date: "2023-06-20",
-      time: "07:00 AM",
+      time: "07:06 PM",
       type: {
         name: "INR Deposit",
         tag: "E-Transfer",
       },
-      amount: "+₹81,123",
-      status: "pending",
+      amount: {
+        primary: "+ ₹81,123",
+      },
+      status: "Pending",
     },
     {
       id: "HD82NA4H",
       date: "2023-06-18",
-      time: "07:00 AM",
+      time: "02:48 PM",
       type: {
         name: "INR Widthdraw",
         tag: "Wire Transfer",
       },
-      amount: "-₹55,123",
-      status: "processing",
+      amount: {
+        primary: "- ₹55,123",
+      },
+      status: "Processing",
     },
     {
       id: "HD82NA5H",
       date: "2023-06-18",
-      time: "07:00 AM",
+      time: "09:21 AM",
       type: {
         name: "Buy",
         tag: "BTC",
       },
-      amount: "12.0554484 BTC",
-      status: "cancelled",
+      amount: {
+        primary: "+ 12.48513391 BTC",
+        secondary: "- ₹81,123.10",
+      },
+      status: "Cancelled",
     },
     {
       id: "HD82NA6H",
       date: "2023-06-18",
-      time: "07:00 AM",
+      time: "01:32 PM",
       type: {
         name: "Sell",
         tag: "BTC",
       },
-      amount: "-2.0554484 BTC",
-      status: "completed",
+      amount: {
+        primary: "- 0.36401628 BTC",
+        secondary: "+ ₹19,378.84",
+      },
+      status: "Completed",
     },
     {
       id: "HD82NA7H",
       date: "2023-06-20",
-      time: "07:00 AM",
+      time: "09:02 AM",
       type: {
         name: "BTC Deposit",
       },
-      amount: "+15.5000000",
-      status: "pending",
+      amount: {
+        primary: "+ 4.13946104 BTC",
+        secondary: "+ ₹37,929.31",
+      },
+      status: "Pending",
     },
     {
       id: "HD82NA8H",
       date: "2023-06-18",
-      time: "07:00 AM",
+      time: "01:56 PM",
       type: {
         name: "BTC Widthdraw",
       },
-      amount: "-5.05555544",
-      status: "completed",
+      amount: {
+        primary: "- 10.00000000 BTC",
+        secondary: "- ₹62,017.58",
+      },
+      status: "Completed",
     },
   ];
 
   const statusColor = {
-    pending: "#797E82",
-    processing: "#F5A50B",
-    completed: "#059669",
-    cancelled: "#DC2626",
+    Pending: "#797E82",
+    Processing: "#F5A50B",
+    Completed: "#059669",
+    Cancelled: "#DC2626",
   };
 
   return (
-    <TableContainer>
-      <Table variant="simple" colorScheme="gray">
-        <Thead>
-          <Tr>
-            <Th>ID</Th>
-            <Th>Date & Time</Th>
-            <Th>Type</Th>
-            <Th>Amount</Th>
-            <Th>Status</Th>
-          </Tr>
-        </Thead>
-        <Tbody color="p.black">
-          {tableData.map((data) => (
-            <Tr key={data.id}>
-              <Td fontSize="sm" fontWeight="medium">
-                {data.id}
-              </Td>
-              <Td>
-                <Stack spacing={0}>
+    <SimpleGrid columns={{ base: 1, xxl: 3 }} spacing={4}>
+      <Box display={{ base: "none", md: "block" }}>
+        <TableContainer>
+          <Table variant="simple" colorScheme="gray">
+            <Thead>
+              <Tr>
+                <Th>ID</Th>
+                <Th>Date & Time</Th>
+                <Th>Type</Th>
+                <Th>Amount</Th>
+                <Th>Status</Th>
+              </Tr>
+            </Thead>
+            <Tbody color="p.black">
+              {tableData.map((data) => (
+                <Tr key={data.id}>
+                  <Td fontSize="sm" fontWeight="medium">
+                    {data.id}
+                  </Td>
+                  <Td>
+                    <Stack spacing={0}>
+                      <Text fontSize="sm" fontWeight="medium">
+                        {data.date}
+                      </Text>
+                      <Text fontSize="xs" color="black.60">
+                        {data.time}
+                      </Text>
+                    </Stack>
+                  </Td>
+                  <Td>
+                    <Stack spacing={0}>
+                      <Text fontSize="sm" fontWeight="medium">
+                        {data.type.name}
+                      </Text>
+                      <Text fontSize="xs" color="black.60">
+                        {data.type?.tag}
+                      </Text>
+                    </Stack>
+                  </Td>
+                  <Td>
+                    <Stack spacing={0}>
+                      <Text fontSize="sm" fontWeight="medium">
+                        {data.amount.primary}
+                      </Text>
+                      <Text fontSize="xs" color="black.60">
+                        {data.amount?.secondary}
+                      </Text>
+                    </Stack>
+                  </Td>
+                  <Td fontSize="sm" fontWeight="medium">
+                    <Tag
+                      color="white"
+                      borderRadius="full"
+                      bg={statusColor[data.status]}
+                    >
+                      {data.status}
+                    </Tag>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
+      <Flex>
+        <Box display={{ base: "block", md: "none" }}>
+          <SimpleGrid columns={2} spacing={4}>
+            {/* Add grid items here */}
+            {tableData.map((data) => (
+              <Box key={data.id} borderWidth="1px" borderRadius="lg" p="4">
+                <HStack>
                   <Text fontSize="sm" fontWeight="medium">
-                    {data.date}
+                    ID:
                   </Text>
-                  <Text fontSize="xs" color="black.60">
-                    {data.time}
-                  </Text>
-                </Stack>
-              </Td>
-              <Td>
-                {" "}
-                <Stack spacing={0}>
+                  <Text>{data.id}</Text>
+                </HStack>
+                <HStack>
                   <Text fontSize="sm" fontWeight="medium">
-                    {data.type.name}
+                    Date & Time:
                   </Text>
-                  <Text fontSize="xs" color="black.60">
-                    {data.type?.tag}
+                  <HStack>
+                    <Text>{data.date}</Text>
+                    <Text fontSize="xs" color="black.60">
+                      {data.time}
+                    </Text>
+                  </HStack>
+                </HStack>
+                <HStack>
+                  <Text fontSize="sm" fontWeight="medium">
+                    Type:{" "}
                   </Text>
-                </Stack>
-              </Td>
-              <Td fontSize="sm" fontWeight="medium">
-                {data.amount}
-              </Td>
-              <Td fontSize="sm" fontWeight="medium">
-                <Tag
-                  bg={statusColor[data.status]}
-                  color="white"
-                  borderRadius="full"
-                >
-                  {data.status}
-                </Tag>
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+                  <HStack>
+                    <Text>{data.type.name}</Text>
+                    <Text fontSize="xs" color="black.60">
+                      {data.type?.tag}
+                    </Text>
+                  </HStack>
+                </HStack>
+                <HStack>
+                  <Text fontSize="sm" fontWeight="medium">
+                    Amount:{" "}
+                  </Text>
+                  <HStack>
+                    <Text>{data.amount.primary}</Text>
+                    <Text fontSize="xs" color="black.60">
+                      {data.amount?.secondary}
+                    </Text>
+                  </HStack>
+                </HStack>
+                <HStack>
+                  <Tag
+                    color="white"
+                    borderRadius="full"
+                    bg={statusColor[data.status]}
+                  >
+                    {data.status}
+                  </Tag>
+                </HStack>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Box>
+      </Flex>
+    </SimpleGrid>
   );
 };
-
+// "?" used for undefined data values in table
 export default TransactionTable;
