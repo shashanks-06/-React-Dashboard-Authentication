@@ -4,5 +4,6 @@ import pluginRewriteAll from "vite-plugin-rewrite-all";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/React-Dashboard-Authentication/",
   plugins: [react(), pluginRewriteAll()],
 });
